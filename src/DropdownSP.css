@@ -1,0 +1,26 @@
+
+.dropdown-container {
+  position: absolute; 
+  right: 60px;
+  top: 140px;
+  z-index: 10; 
+}
+
+
+.dropdown-container select {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  width: 220px;
+}
+
+.dropdown-container select:hover {
+  border-color: #007bff;
+}
+
+.column-list-container {
+  margin-bottom: 20px;
+}
