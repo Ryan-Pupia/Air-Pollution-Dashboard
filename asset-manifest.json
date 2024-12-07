@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Air-Pollution-Dashboard/static/css/main.406a6d73.css",
+    "main.js": "/Air-Pollution-Dashboard/static/js/main.9b0f4b92.js",
+    "index.html": "/Air-Pollution-Dashboard/index.html",
+    "main.406a6d73.css.map": "/Air-Pollution-Dashboard/static/css/main.406a6d73.css.map",
+    "main.9b0f4b92.js.map": "/Air-Pollution-Dashboard/static/js/main.9b0f4b92.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.406a6d73.css",
+    "static/js/main.9b0f4b92.js"
+  ]
+}
