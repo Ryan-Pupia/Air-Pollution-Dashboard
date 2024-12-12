@@ -17,7 +17,9 @@ class App extends Component {
       originalData: [],
       filteredData: [],
       pollutants: [],
-      choicePollutant: "",
+      //Adding separate states for ScatterPlot and LineChart:
+      ScatterPollutant: [],
+      LineChartPollutant: [],
       timeRange: [0, 100],
     };
   }
@@ -33,15 +35,25 @@ class App extends Component {
       originalData: csv_data,
       filteredData: csv_data,
       pollutants: pollutantsList,
-      choicePollutant: pollutantsList[0],
+      ScatterPollutant: pollutantsList[0],
+      LineChartPollutant: pollutantsList[0],
     });
 
     console.log(csv_data);
   };
 
-  polSel = (pollutant) => {
-    this.setState({ choicePollutant: pollutant });
-  };
+  // polSel = (pollutant) => {
+  //   this.setState({ choicePollutant: pollutant });
+  // };
+
+  //Separate change handlers for Scatter and Line:
+  handleScatterPollutantChange = (pollutant) => {
+    this.setState({ ScatterPollutant: pollutant });   
+  }
+
+  handleLineChartChange = (pollutant) => {
+    this.setState({LineChartPollutant: pollutant});
+  }
 
   handleSliderChange = (event) => {
     const value = event.target.value;
@@ -85,15 +97,15 @@ class App extends Component {
   }
 
   render() {
-    const { originalData, filteredData, pollutants, choicePollutant, timeRange } = this.state;
+    const { originalData, filteredData, pollutants, ScatterPollutant, LineChartPollutant, timeRange } = this.state;
 
     return(
       <div className="App">
         {/* File Upload */}
         <FileUpload set_data={this.set_data} />
 
-        {/* Dropdown component */}
-        {/* {pollutants.length > 0 && (
+        {/* Dropdown component
+        {pollutants.length > 0 && (
           <div className="dropdown-container">
             <Dropdown
               columns={pollutants}
@@ -101,6 +113,28 @@ class App extends Component {
             />
           </div>
         )} */}
+
+        {/* Dropdown for ScatterPlots */}
+        {pollutants.length > 0 && (
+          <div className="dropdown-container-scatter">
+            <Dropdown
+              columns={pollutants}
+              header = "Select Pollutant for Scatter Plot:"
+              onSelect={this.handleScatterPollutantChange}
+            />
+          </div>
+        )}
+
+        {/* Dropdown for LineChart */}
+        {pollutants.length > 0 && (
+          <div className="dropdown-container-line">
+            <Dropdown
+              columns={pollutants}
+              header="Select Pollutant for Line Chart:"
+              onSelect={this.handleLineChartChange}
+            />
+          </div>
+        )}
         
         {/* Date Slider */}
         <div className="mySlider">
@@ -118,11 +152,11 @@ class App extends Component {
             <StreamGraph csv_data={filteredData} />
           </div>
           <div className="item">
-            {choicePollutant && (
+            {LineChartPollutant && (
               <SinglePollutants 
                 csv_data={filteredData} 
                 columns={pollutants} 
-                choicePollutant={choicePollutant} 
+                choicePollutant={LineChartPollutant} 
                 timeRange={timeRange}
               />
             )}
@@ -130,10 +164,10 @@ class App extends Component {
         </div>
 
         {/* Scatter Plots */}
-        {choicePollutant && (
+        {ScatterPollutant && (
             <ScatterPlots
               csv_data={originalData}
-              choicePollutant={choicePollutant}
+              choicePollutant={ScatterPollutant}
             />
         )}
       </div>

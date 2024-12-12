@@ -1,13 +1,13 @@
 
-.dropdown-container {
+.dropdown-container-scatter {
   position: absolute; 
-  right: 60px;
-  top: 140px;
+  right: 1200px;
+  top: 800px;
   z-index: 10; 
 }
 
 
-.dropdown-container select {
+.dropdown-container-scatter select {
   padding: 10px;
   font-size: 16px;
   border-radius: 5px;
@@ -17,7 +17,34 @@
   width: 220px;
 }
 
-.dropdown-container select:hover {
+.dropdown-container-scatter select:hover {
+  border-color: #007bff;
+}
+
+.column-list-container {
+  margin-bottom: 20px;
+}
+
+/*LINE CHART DROPDOWN*/
+.dropdown-container-line {
+  position: absolute; 
+  right: 700px;
+  top: 180px;
+  z-index: 10; 
+}
+
+
+.dropdown-container-line select {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  width: 220px;
+}
+
+.dropdown-container-line select:hover {
   border-color: #007bff;
 }
 

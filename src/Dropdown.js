@@ -13,10 +13,10 @@ class Dropdown extends Component {
   };
 
   render() {
-    const { columns } =this.props;
+    const { columns , header} =this.props;
     return (
       <div>
-        <h3>Select Pollutant:</h3>
+        <h3>{header}</h3>
         <select value={this.state.selectedPollutant} onChange={this.changes}>
           {columns.map((column, index)=>(
             <option key={index} value={column}>
