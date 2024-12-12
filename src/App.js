@@ -115,7 +115,7 @@ class App extends Component {
         )} */}
 
         {/* Dropdown for LineChart */}
-        {/* {pollutants.length > 0 && (
+        {pollutants.length > 0 && (
           <div className="dropdown-container-line">
             <Dropdown
               columns={pollutants}
@@ -123,7 +123,7 @@ class App extends Component {
               onSelect={this.handleLineChartChange}
             />
           </div>
-        )} */}
+        )}
         
         {/* Date Slider */}
         <div className="mySlider">
@@ -153,7 +153,7 @@ class App extends Component {
         </div>
 
         {/* Dropdown for ScatterPlots */}
-        {/* {pollutants.length > 0 && (
+        {pollutants.length > 0 && (
           <div className="dropdown-container-scatter">
             <Dropdown
               columns={pollutants}
@@ -161,7 +161,7 @@ class App extends Component {
               onSelect={this.handleScatterPollutantChange}
             />
           </div>
-        )} */}
+        )}
 
         {/* Scatter Plots */}
         {ScatterPollutant && (

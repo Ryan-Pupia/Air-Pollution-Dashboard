@@ -1,8 +1,8 @@
 
 .dropdown-container-scatter {
   position: absolute; 
-  right: 1230px;
-  top: 625px;
+  right: 10%;
+  top: 65%;
   z-index: 10; 
 }
 
@@ -28,8 +28,8 @@
 /*LINE CHART DROPDOWN*/
 .dropdown-container-line {
   position: absolute; 
-  right: 700px;
-  top: 180px;
+  right: 10%;
+  top: 15%;
   z-index: 10; 
 }
 

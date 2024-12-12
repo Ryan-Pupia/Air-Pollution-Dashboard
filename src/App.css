@@ -34,5 +34,4 @@ svg.streamGraph, svg.pollutantGraph {
 .scatterPlots .item {
   flex: 1;
   align-items: center;
-  /* border: 2px solid red; */
 }
