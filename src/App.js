@@ -86,7 +86,7 @@ class App extends Component {
     // add slider to page
     const gRange = d3.select('.slider-range')
         .attr('width', 500)
-        .attr('height', 100)
+        .attr('height', 80)
         .selectAll('.slider-g')
         .data([null])
         .join('g')
@@ -114,19 +114,8 @@ class App extends Component {
           </div>
         )} */}
 
-        {/* Dropdown for ScatterPlots */}
-        {pollutants.length > 0 && (
-          <div className="dropdown-container-scatter">
-            <Dropdown
-              columns={pollutants}
-              header = "Select Pollutant for Scatter Plot:"
-              onSelect={this.handleScatterPollutantChange}
-            />
-          </div>
-        )}
-
         {/* Dropdown for LineChart */}
-        {pollutants.length > 0 && (
+        {/* {pollutants.length > 0 && (
           <div className="dropdown-container-line">
             <Dropdown
               columns={pollutants}
@@ -134,7 +123,7 @@ class App extends Component {
               onSelect={this.handleLineChartChange}
             />
           </div>
-        )}
+        )} */}
         
         {/* Date Slider */}
         <div className="mySlider">
@@ -162,6 +151,17 @@ class App extends Component {
             )}
           </div>
         </div>
+
+        {/* Dropdown for ScatterPlots */}
+        {/* {pollutants.length > 0 && (
+          <div className="dropdown-container-scatter">
+            <Dropdown
+              columns={pollutants}
+              header = "Select Pollutant for Scatter Plot:"
+              onSelect={this.handleScatterPollutantChange}
+            />
+          </div>
+        )} */}
 
         {/* Scatter Plots */}
         {ScatterPollutant && (

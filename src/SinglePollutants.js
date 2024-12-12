@@ -65,20 +65,20 @@ class SinglePollutants extends Component {
                 0,
                 d3.max(narrowedData, d => Math.max(d[baseColumn] || 0, sensorColumn ? d[sensorColumn] : 0))
             ])
-            .range([400, 0]);
+            .range([250, 0]);
 
         // Clearing any previous SVG elements:
         d3.select(".pollutantGraph").selectAll("*").remove();
 
         const svgElement = d3.select(".pollutantGraph")
             .attr("width", 600)
-            .attr("height", 400)
+            .attr("height", 300)
             .append("g")
             .attr("transform", "translate(60, 20)");
 
         // Scales:
         svgElement.append("g")
-            .attr("transform", "translate(0, 400)")
+            .attr("transform", "translate(0, 250)")
             .call(d3.axisBottom(xScale).tickFormat(d3.timeFormat("%b")));
 
         svgElement.append("g")
