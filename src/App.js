@@ -131,12 +131,10 @@ class App extends Component {
 
         {/* Scatter Plots */}
         {choicePollutant && (
-          <div className="scatterplots-container">
             <ScatterPlots
               csv_data={originalData}
               choicePollutant={choicePollutant}
             />
-          </div>
         )}
       </div>
     );

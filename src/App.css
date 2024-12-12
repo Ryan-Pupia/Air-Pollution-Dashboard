@@ -8,19 +8,31 @@
 /* Flexbox for StreamGraph & Line Chart */
 .streamAndLine {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   /* border: 2px solid black;  */
 }
 
 .streamAndLine .item {
   flex: 1;
-  display: flex;
-  justify-content: center;
   align-items: center;
   /* border: 2px solid red; */
 }
 
 svg.streamGraph, svg.pollutantGraph {
-  width: 100%; /* Ensure charts resize properly */
-  height: auto; /* Maintain aspect ratio */
+  width: 100%;
+  height: auto;
+}
+
+/* Flexbox for Scatterplots */
+.scatterPlots {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.scatterPlots .item {
+  flex: 1;
+  align-items: center;
+  /* border: 2px solid red; */
 }

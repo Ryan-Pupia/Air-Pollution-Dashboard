@@ -39,7 +39,8 @@ class ScatterPlots extends Component{
       .data(dim)
       .join("svg")
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", height)
+      .attr("class", "item");
 
     dim.forEach((dim, index) =>{
       const svg =box.filter((d, i) => i === index)

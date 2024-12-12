@@ -58,7 +58,7 @@ class SinglePollutants extends Component {
         // D3 scales:
         const xScale = d3.scaleTime()
             .domain([new Date(narrowedData[0].Date), new Date(narrowedData[narrowedData.length - 1].Date)])
-            .range([0, 850]);
+            .range([0, 400]);
 
         const yScale = d3.scaleLinear()
             .domain([
@@ -79,7 +79,7 @@ class SinglePollutants extends Component {
         // Scales:
         svgElement.append("g")
             .attr("transform", "translate(0, 400)")
-            .call(d3.axisBottom(xScale));
+            .call(d3.axisBottom(xScale).tickFormat(d3.timeFormat("%b")));
 
         svgElement.append("g")
             .call(d3.axisLeft(yScale));
@@ -115,14 +115,14 @@ class SinglePollutants extends Component {
 
         if (baseColumn) {
             legend.append("rect")
-                .attr("x", 770)
+                .attr("x", 450)
                 .attr("y", 0)
                 .attr("width", 10)
                 .attr("height", 10)
                 .style("fill", "blue");
 
             legend.append("text")
-                .attr("x", 790)
+                .attr("x", 470)
                 .attr("y", 10)
                 .attr("dy", "-0.25em")
                 .style("text-anchor", "start")
@@ -131,14 +131,14 @@ class SinglePollutants extends Component {
 
         if (sensorColumn) {
             legend.append("rect")
-                .attr("x", 770)
+                .attr("x", 450)
                 .attr("y", baseColumn ? 20 : 0)
                 .attr("width", 10)
                 .attr("height", 10)
                 .style("fill", "red"); 
 
             legend.append("text")
-                .attr("x", 790)
+                .attr("x", 470)
                 .attr("y", baseColumn ? 30 : 10)
                 .attr("dy", "-0.25em")
                 .style("text-anchor", "start")
