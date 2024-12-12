@@ -15,7 +15,7 @@ class StreamGraph extends Component {
       // set dimensions and margins
       const margin = { top: 40, right: 180, bottom: 40, left: 20 };
       const width = 600;
-      const height = 300;
+      const height = 400;
       const innerWidth = width - margin.left - margin.right;
       const innerHeight = height - margin.top - margin.bottom;
     
@@ -80,9 +80,7 @@ class StreamGraph extends Component {
   
     render() {
       return (
-        <div>
-          <svg className="streamGraph"><g></g></svg>
-        </div>
+        <svg className="streamGraph"><g></g></svg>
       );
     }
   }

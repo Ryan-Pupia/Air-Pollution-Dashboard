@@ -71,8 +71,8 @@ class SinglePollutants extends Component {
         d3.select(".pollutantGraph").selectAll("*").remove();
 
         const svgElement = d3.select(".pollutantGraph")
-            .attr("width", 950)
-            .attr("height", 500)
+            .attr("width", 600)
+            .attr("height", 400)
             .append("g")
             .attr("transform", "translate(60, 20)");
 
@@ -148,9 +148,7 @@ class SinglePollutants extends Component {
 
     render() {
         return (
-            <div>
-                <svg className="pollutantGraph"></svg>
-            </div>
+            <svg className="pollutantGraph"></svg>
         );
     }
 }

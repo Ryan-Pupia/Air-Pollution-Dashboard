@@ -8,6 +8,7 @@ import SinglePollutants from "./SinglePollutants";
 import * as d3 from "d3";
 import { sliderBottom } from 'd3-simple-slider';
 import "./DropdownSP.css";
+import "./App.css"
 
 class App extends Component {
   constructor(props) {
@@ -54,7 +55,7 @@ class App extends Component {
   timeSlider = () => {
     // get data
     const data = this.state.filteredData;
-    console.log("Data in createSlider():", data)
+    // console.log("Data in createSlider():", data)
 
     // create slider
     const sliderRange = sliderBottom()
@@ -92,42 +93,41 @@ class App extends Component {
         <FileUpload set_data={this.set_data} />
 
         {/* Dropdown component */}
-        {pollutants.length > 0 && (
+        {/* {pollutants.length > 0 && (
           <div className="dropdown-container">
             <Dropdown
               columns={pollutants}
               onSelect={this.polSel}
             />
           </div>
-        )}
-
+        )} */}
+        
         {/* Date Slider */}
-        <div>
+        <div className="mySlider">
           <svg className="slider-range"></svg>
         </div>
 
         {/* Column List */}
-        <div className="column-list-container">
+        {/* <div className="column-list-container">
           <ColumnList csv_data={originalData} />
-        </div>
+        </div> */}
 
-        {/* Stream Graph */}
-        <div>
-          <StreamGraph csv_data={filteredData} />
+        {/* Stream Graph and Single Pollutants Visualization */}
+        <div className="streamAndLine">
+          <div className="item">
+            <StreamGraph csv_data={filteredData} />
+          </div>
+          <div className="item">
+            {choicePollutant && (
+              <SinglePollutants 
+                csv_data={filteredData} 
+                columns={pollutants} 
+                choicePollutant={choicePollutant} 
+                timeRange={timeRange}
+              />
+            )}
+          </div>
         </div>
-
-        {/* Single Pollutants Visualization */}
-        <div>
-          {choicePollutant && (
-            <SinglePollutants 
-              csv_data={filteredData} 
-              columns={pollutants} 
-              choicePollutant={choicePollutant} 
-              timeRange={timeRange}
-            />
-          )}
-        </div>
-
 
         {/* Scatter Plots */}
         {choicePollutant && (

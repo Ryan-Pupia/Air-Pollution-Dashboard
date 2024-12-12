@@ -1,0 +1,26 @@
+/* Flexbox for Slider */
+.mySlider {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/* Flexbox for StreamGraph & Line Chart */
+.streamAndLine {
+  display: flex;
+  justify-content: center;
+  /* border: 2px solid black;  */
+}
+
+.streamAndLine .item {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 2px solid red; */
+}
+
+svg.streamGraph, svg.pollutantGraph {
+  width: 100%; /* Ensure charts resize properly */
+  height: auto; /* Maintain aspect ratio */
+}
