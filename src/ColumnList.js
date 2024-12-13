@@ -3,7 +3,7 @@ import "./ColumnList.css"
 import * as d3 from "d3";
 
 class ColumnList extends Component {
-    componentDidUpdate() {
+    componentDidMount() {
         this.renderColumnList();
     }
 

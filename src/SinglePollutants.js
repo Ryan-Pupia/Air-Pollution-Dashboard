@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import * as d3 from 'd3';
 
 class SinglePollutants extends Component {
+    componentDidMount() {
+        this.pollutantGraph();
+    }
+
     // Calls the pollutantGraph when any of the props is changed:
     componentDidUpdate(previousProps) {
         if (previousProps.csv_data !== this.props.csv_data || 

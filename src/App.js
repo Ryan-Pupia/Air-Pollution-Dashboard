@@ -104,62 +104,67 @@ class App extends Component {
         {/* File Upload */}
         <FileUpload set_data={this.set_data} />
 
-        {/* Column List */}
-        <div className="column-list-container">
-          <ColumnList csv_data={originalData} />
-        </div>
-        
-        {/* Date Slider */}
-        <div className="mySlider">
-          <svg className="slider-range"></svg>
-        </div>
+        {/* Show dashboard only when data is loaded */}
+        {originalData.length > 0 && (
+          <>
+            {/* Column List */}
+            <div className="column-list-container">
+              <ColumnList csv_data={originalData} />
+            </div>
+            
+            {/* Date Slider */}
+            <div className="mySlider">
+              <svg className="slider-range"></svg>
+            </div>
 
-        {/* Stream Graph and Single Pollutants w/ Dropdown Visualization */}
-        <div className="streamAndLine">
-          <div className="item">
-            <h3>StreamGraph:</h3>
-            <StreamGraph csv_data={filteredData} />
-          </div>
-          <div className="item">
-            {/* Dropdown for LineChart */}
-            {pollutants.length > 0 && (
-              <Dropdown
-                columns={pollutants}
-                onSelect={this.handleLineChartChange}
-              />
+            {/* Stream Graph and Single Pollutants w/ Dropdown Visualization */}
+            <div className="streamAndLine">
+              <div className="item">
+                <h3>StreamGraph:</h3>
+                <StreamGraph csv_data={filteredData} />
+              </div>
+              <div className="item">
+                {/* Dropdown for LineChart */}
+                {pollutants.length > 0 && (
+                  <Dropdown
+                    columns={pollutants}
+                    onSelect={this.handleLineChartChange}
+                  />
+                )}
+                <h3>LineChart:</h3>
+                {LineChartPollutant && (
+                  <SinglePollutants 
+                    csv_data={filteredData} 
+                    columns={pollutants} 
+                    choicePollutant={LineChartPollutant} 
+                    timeRange={timeRange}
+                  />
+                )}
+              </div>
+            </div>
+
+            {/* Scatter Plot Dropdown */}
+            <div className="scatterPlotDropdown">
+              {/* Dropdown for ScatterPlots */}
+              {pollutants.length > 0 && (
+                <Dropdown
+                  columns={pollutants}
+                  onSelect={this.handleScatterPollutantChange}
+                />
+              )}
+            </div>
+
+            {/* Scatter Plots */}
+            <h3>ScatterPlots:</h3>
+            {ScatterPollutant && (
+                <ScatterPlots
+                  csv_data={originalData}
+                  choicePollutant={ScatterPollutant}
+                />
             )}
-            <h3>LineChart:</h3>
-            {LineChartPollutant && (
-              <SinglePollutants 
-                csv_data={filteredData} 
-                columns={pollutants} 
-                choicePollutant={LineChartPollutant} 
-                timeRange={timeRange}
-              />
-            )}
-          </div>
-        </div>
-
-        {/* Scatter Plot Dropdown */}
-        <div className="scatterPlotDropdown">
-          {/* Dropdown for ScatterPlots */}
-          {pollutants.length > 0 && (
-            <Dropdown
-              columns={pollutants}
-              onSelect={this.handleScatterPollutantChange}
-            />
-          )}
-        </div>
-
-        {/* Scatter Plots */}
-        <h3>ScatterPlots:</h3>
-        {ScatterPollutant && (
-            <ScatterPlots
-              csv_data={originalData}
-              choicePollutant={ScatterPollutant}
-            />
+          </>
         )}
-      </div>
+      </div>  
     );
   }
 }
