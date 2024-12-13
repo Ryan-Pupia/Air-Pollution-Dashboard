@@ -1,3 +1,10 @@
+/* Flexbox for Column List */
+.column-list-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 /* Flexbox for Slider */
 .mySlider {
   display: flex;
@@ -19,16 +26,28 @@
   /* border: 2px solid red; */
 }
 
+.streamAndLine .item div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* border: 2px solid red; */
+}
+
 svg.streamGraph, svg.pollutantGraph {
   width: 100%;
   height: auto;
 }
 
 /* Flexbox for Scatterplots */
+.scatterPlotDropdown {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 .scatterPlots {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .scatterPlots .item {

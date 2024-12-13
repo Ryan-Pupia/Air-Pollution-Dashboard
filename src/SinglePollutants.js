@@ -14,6 +14,7 @@ class SinglePollutants extends Component {
     // Choosing the relevant columns: If a pollutant has both GT and PT08 features, the graph will plot both features for the pollutant:
     pollutantGraph = () => {
         const { csv_data, choicePollutant, timeRange } = this.props;
+        // console.log("In SP, pG:", this.props);
 
         // In case of an irrelevant pollutant:
         if (!choicePollutant) {
