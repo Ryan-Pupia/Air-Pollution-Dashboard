@@ -65,8 +65,9 @@ class FileUpload extends Component {
         result.push(parsedObj);
       }
     }
+    const clean = result.filter(d => !Object.values(d).includes(NaN))
 
-    return result;
+    return clean;
   };
 
   render() {

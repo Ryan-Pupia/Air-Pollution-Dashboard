@@ -39,7 +39,7 @@ class App extends Component {
       LineChartPollutant: pollutantsList[0],
     });
 
-    console.log(csv_data);
+    //console.log(csv_data);
   };
 
   // polSel = (pollutant) => {

@@ -62,10 +62,6 @@ class StreamGraph extends Component {
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
-    // get max sum for y axis
-    const maxSum = d3.sum(pollutants.map(p => d3.max(data, d => d[p])));
-    const minSum = d3.sum(pollutants.map(p => d3.min(data, d => d[p])));
-
     // Clear previous graph elements but keep the legend
     d3.select('.streamGraph').select('g').selectAll('*').remove();
 
@@ -79,6 +75,8 @@ class StreamGraph extends Component {
     // create area stacks
     const stack = d3.stack().keys(pollutants).offset(d3.stackOffsetWiggle);
     const stackedData = stack(data);
+    console.log(stackedData)
+    // Array of 10 arrays, each describing 
 
     // create x and y scales
     const xScale = d3.scaleTime()
@@ -86,7 +84,7 @@ class StreamGraph extends Component {
       .range([0, innerWidth]);
 
     const yScale = d3.scaleLinear()
-      .domain([minSum - 8000, maxSum])
+      .domain(d3.extent(stackedData.flat(2)))
       .range([innerHeight, 0]);
 
     // create area generation
