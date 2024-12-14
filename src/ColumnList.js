@@ -32,9 +32,9 @@ class ColumnList extends Component {
     ColList.selectAll(".column").data(cols).join('text')
         .attr('class', 'column')
         .attr('text-anchor', 'start')
-        .attr('font-size', 11)
-        .attr('x', (d, i) => width/ncol*(i%ncol))
-        .attr('y', (d, i) => 20 + (height-20)/nrow*(Math.floor(i/ncol)))
+        .attr('font-size', 16)
+        .attr('x', (d, i) => 16+ width/ncol*(i%ncol))
+        .attr('y', (d, i) => 22 + (height-20)/nrow*(Math.floor(i/ncol)))
         .text(d => d)
         .on("mousemove", (event, d) => {
             const smallWidth = 400

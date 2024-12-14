@@ -63,7 +63,7 @@ class SinglePollutants extends Component {
         // Making margins and dimensions
         const margin = {top: 50, right: 50, bottom: 10, left: 50}
         const h = 200
-        const w = 600
+        const w = 700
 
         // D3 scales:
         const xScale = d3.scaleTime()

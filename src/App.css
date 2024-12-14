@@ -85,6 +85,10 @@ h3 {
 .streamAndLine .item {
   height: 350px;
   width: 600px;
+  border: 3px solid grey;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
 }
 
 .streamAndLine {
@@ -95,4 +99,28 @@ h3 {
 
 .column-list-container{
   width: 100%;
+}
+
+.Component-1 {
+  border: 3px solid grey;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.Component-2 {
+  border: 3px solid grey;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.scatterPlots {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.scatterPlots svg {
+  border: 3px solid grey;
+  padding: 20px;
+  border-radius: 5px;
+  margin: 10px;
 }

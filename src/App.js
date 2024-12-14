@@ -146,7 +146,7 @@ class App extends Component {
           <>
             {/* Column List */}
             <ColumnList csv_data={originalData} />
-            
+            <div className="Component-1">
             {/* Date Slider */}
             <div className="mySlider">
               <svg className="slider-range"></svg>
@@ -177,7 +177,8 @@ class App extends Component {
                 )}
               </div>
             </div>
-
+            </div>
+            <div className="Component-2">
             {/* Scatter Plot Label and Dropdown */}
             <div className="scatterPlotLabelAndDropdown">
               <div className="item">
@@ -200,6 +201,7 @@ class App extends Component {
                   choicePollutant={ScatterPollutant}
                 />
             )}
+            </div>
           </>
         )}
       </div>  
