@@ -50,6 +50,7 @@ class App extends Component {
   handleScatterPollutantChange = (pollutant) => {
     this.setState({ ScatterPollutant: pollutant });   
   }
+
   currentDateRangeFilter = (data, dateRange) => {
     if (!dateRange) return data;
     return data.filter(
@@ -60,6 +61,7 @@ class App extends Component {
   // handleLineChartChange = (pollutant) => {
   //   this.setState({LineChartPollutant: pollutant});
   // }
+
   handleLineChartChange = (pollutant) => {
     // line chart needs to be updated while keeping current date range
     const filteredData = this.currentDateRangeFilter(
@@ -143,9 +145,7 @@ class App extends Component {
         {originalData.length > 0 && (
           <>
             {/* Column List */}
-            <div className="column-list-container">
-              <ColumnList csv_data={originalData} />
-            </div>
+            <ColumnList csv_data={originalData} />
             
             {/* Date Slider */}
             <div className="mySlider">

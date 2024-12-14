@@ -1,15 +1,9 @@
-/* Flexbox for Column List */
-.column-list-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
 /* Flexbox for Slider */
 .mySlider {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  /* border: 2px solid rebeccapurple; */
 }
 
 /* Flexbox for StreamGraph & Line Chart */
