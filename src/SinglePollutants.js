@@ -60,37 +60,48 @@ class SinglePollutants extends Component {
             return percentElapsed >= timeRange[0] && percentElapsed <= timeRange[1];
         });
 
+        // Making margins and dimensions
+        const margin = {top: 50, right: 50, bottom: 10, left: 50}
+        const h = 200
+        const w = 600
+
         // D3 scales:
         const xScale = d3.scaleTime()
             .domain([new Date(narrowedData[0].Date), new Date(narrowedData[narrowedData.length - 1].Date)])
-            .range([0, 400]);
+            .range([0, w]);
 
         const yScale = d3.scaleLinear()
             .domain([
                 0,
                 d3.max(narrowedData, d => Math.max(d[baseColumn] || 0, sensorColumn ? d[sensorColumn] : 0))
             ])
-            .range([250, 0]);
+            .range([h, 0]);
 
         // Clearing any previous SVG elements:
         d3.select(".pollutantGraph").selectAll("*").remove();
 
         const svgElement = d3.select(".pollutantGraph")
-            .attr("width", 600)
-            .attr("height", 300)
-            .append("g")
-            .attr("transform", "translate(60, 20)");
+            .attr("width", margin.left + w + margin.right)
+            .attr("height", margin.top + h + margin.bottom)
+            
+        const container = svgElement.append("g")
+            .attr("transform", `translate(${margin.left}, ${margin.top})`)
+            .attr('height', h)
+            .attr('width', w);
 
         // Scales:
         svgElement.append("g")
-            .attr("transform", "translate(0, 250)")
+            .attr('class', 'x-axis')
+            .attr("transform", `translate(${margin.left}, ${margin.top + h})`)
             .call(d3.axisBottom(xScale).tickFormat(d3.timeFormat("%b")));
 
         svgElement.append("g")
+            .attr('class', 'y-axis')
+            .attr('transform', `translate(${margin.left}, ${margin.top})`)
             .call(d3.axisLeft(yScale));
 
         if (baseColumn) {
-            svgElement.append("path")
+            container.append("path")
                 .datum(narrowedData)
                 .attr("fill", "none")
                 .attr("stroke", "blue") 
@@ -102,7 +113,7 @@ class SinglePollutants extends Component {
         }
             
         if (sensorColumn) {
-            svgElement.append("path")
+            container.append("path")
                 .datum(narrowedData)
                 .attr("fill", "none")
                 .attr("stroke", "red") 
@@ -116,19 +127,18 @@ class SinglePollutants extends Component {
         // LEGEND:
         const legend = svgElement.append("g")
             .attr("class", "legend")
-            .attr("transform", "translate(60,20)");
 
         if (baseColumn) {
             legend.append("rect")
-                .attr("x", 450)
-                .attr("y", 0)
+                .attr("x", margin.left + w + margin.right/4)
+                .attr("y", margin.top + h/4)
                 .attr("width", 10)
                 .attr("height", 10)
                 .style("fill", "blue");
 
             legend.append("text")
-                .attr("x", 470)
-                .attr("y", 10)
+                .attr("x", margin.left + w + margin.right/4+ 20)
+                .attr("y", margin.top + h/4 + 10)
                 .attr("dy", "-0.25em")
                 .style("text-anchor", "start")
                 .text("GT");
@@ -136,15 +146,15 @@ class SinglePollutants extends Component {
 
         if (sensorColumn) {
             legend.append("rect")
-                .attr("x", 450)
-                .attr("y", baseColumn ? 20 : 0)
+                .attr("x", margin.left + w + margin.right/4)
+                .attr("y", margin.top + h/4 + (baseColumn ? 20 : 0))
                 .attr("width", 10)
                 .attr("height", 10)
                 .style("fill", "red"); 
 
             legend.append("text")
-                .attr("x", 470)
-                .attr("y", baseColumn ? 30 : 10)
+                .attr("x", margin.left + w + margin.right/4+ 20)
+                .attr("y", margin.top + h/4 + (baseColumn ? 30 : 10))
                 .attr("dy", "-0.25em")
                 .style("text-anchor", "start")
                 .text("Sens");
