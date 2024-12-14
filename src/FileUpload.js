@@ -48,12 +48,12 @@ class FileUpload extends Component {
       if (Object.keys(obj).length && lines[i].trim()) {
         const parsedObj = {
           Date:new Date(obj.Date + " " + obj.Time),
+          "NOx(GT)": parseFloat(obj["NOx(GT)"]),
           "CO(GT)": parseFloat(obj["CO(GT)"]),
           "PT08.S1(CO)": parseFloat(obj["PT08.S1(CO)"]),
           "NMHC(GT)": parseFloat(obj["NMHC(GT)"]),
           "C6H6(GT)": parseFloat(obj["C6H6(GT)"]),
           "PT08.S2(NMHC)": parseFloat(obj["PT08.S2(NMHC)"]),
-          "NOx(GT)": parseFloat(obj["NOx(GT)"]),
           "PT08.S3(NOx)": parseFloat(obj["PT08.S3(NOx)"]),
           "NO2(GT)": parseFloat(obj["NO2(GT)"]),
           "PT08.S4(NO2)": parseFloat(obj["PT08.S4(NO2)"]),

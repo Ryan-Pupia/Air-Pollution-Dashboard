@@ -8,7 +8,7 @@ import SinglePollutants from "./SinglePollutants";
 import * as d3 from "d3";
 import { sliderBottom } from 'd3-simple-slider';
 import "./DropdownSP.css";
-import "./App.css"
+import "./App.css";
 
 class App extends Component {
   constructor(props) {
@@ -17,9 +17,9 @@ class App extends Component {
       originalData: [],
       filteredData: [],
       pollutants: [],
-      //Adding separate states for ScatterPlot and LineChart:
       ScatterPollutant: [],
       LineChartPollutant: [],
+      currentDateRange: null,
       timeRange: [0, 100],
     };
   }
@@ -50,14 +50,39 @@ class App extends Component {
   handleScatterPollutantChange = (pollutant) => {
     this.setState({ ScatterPollutant: pollutant });   
   }
-
-  handleLineChartChange = (pollutant) => {
-    this.setState({LineChartPollutant: pollutant});
+  currentDateRangeFilter = (data, dateRange) => {
+    if (!dateRange) return data;
+    return data.filter(
+      d => new Date(d.Date) >= dateRange[0] && new Date(d.Date) <= dateRange[1]
+    );
   }
 
+  // handleLineChartChange = (pollutant) => {
+  //   this.setState({LineChartPollutant: pollutant});
+  // }
+  handleLineChartChange = (pollutant) => {
+    // line chart needs to be updated while keeping current date range
+    const filteredData = this.currentDateRangeFilter(
+      this.state.originalData, 
+      this.state.currentDateRange
+    );
+
+    this.setState({ 
+      LineChartPollutant: pollutant,
+      filteredData: filteredData
+    });
+  }
+
+  // handle slider to not update each time a dropdown is selected
   handleSliderChange = (event) => {
+    const filteredData = this.currentDateRangeFilter(
+      this.state.originalData, 
+      this.state.currentDateRange
+    );
     const value = event.target.value;
-    this.setState({ timeRange: [0, value] });
+    this.setState({ timeRange: [0, value],
+      filteredData: filteredData
+     });
   }
 
   componentDidUpdate() {
@@ -65,33 +90,43 @@ class App extends Component {
   }
 
   timeSlider = () => {
-    // get data
     const data = this.state.filteredData;
-    // console.log("Data in createSlider():", data)
-
-    // create slider
+    const allDates = data.map(d => new Date(d.Date));
+    const minDate = d3.min(allDates);
+    const maxDate = d3.max(allDates);
+    const weekmili = 7 * 24 * 60 * 60 * 1000;
+  
     const sliderRange = sliderBottom()
-      .min(d3.min(data, d => d.Date))
-      .max(d3.max(data, d => d.Date))
+      .min(minDate)
+      .max(maxDate)
       .width(300)
       .tickFormat(d3.timeFormat('%Y-%m-%d'))
       .ticks(5)
-      .default([d3.min(data, d => d.Date), d3.max(data, d => d.Date)])
+      .default([minDate, maxDate])
       .fill('#85bb65')
       .on('onchange', val => {
-          const f_data = this.state.originalData.filter(d => d.Date >= val[0] && d.Date <= val[1]);
-          this.setState({ filteredData: f_data });
+        // 7 day range to debug
+        if (val[1] - val[0] < weekmili) {
+          val[1] = new Date(val[0].getTime() + weekmili);
+        }
+
+        // state stores date range currently
+        this.setState({ 
+          currentDateRange: val,
+          filteredData: this.state.originalData.filter(
+            d => new Date(d.Date) >= val[0] && new Date(d.Date) <= val[1]
+          )
+        });
       });
 
-    // add slider to page
     const gRange = d3.select('.slider-range')
-        .attr('width', 500)
-        .attr('height', 80)
-        .selectAll('.slider-g')
-        .data([null])
-        .join('g')
-        .attr('class', 'slider-g')
-        .attr('transform', 'translate(90,30)');
+      .attr('width', 500)
+      .attr('height', 80)
+      .selectAll('.slider-g')
+      .data([null])
+      .join('g')
+      .attr('class', 'slider-g')
+      .attr('transform', 'translate(90,30)');
 
     gRange.call(sliderRange);
   }
