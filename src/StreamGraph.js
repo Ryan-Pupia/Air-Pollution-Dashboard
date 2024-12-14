@@ -3,7 +3,6 @@ import * as d3 from "d3";
 
 class StreamGraph extends Component {
   componentDidMount() {
-    // Create the legend once when the component mounts
     this.createLegend();
     this.renderStreamGraph();
   }
@@ -20,10 +19,10 @@ class StreamGraph extends Component {
     const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#FFC300", 
                    "#33FFF5", "#8E44AD", "#E67E22", "#1ABC9C", "#34495E"];
 
-    // Clear any existing legend
+    // clear existing legend
     d3.select('.streamGraph').select('.legend').remove();
 
-    // Create legend
+    // create legend
     const legend = d3.select('.streamGraph')
       .append("g")
       .attr("class", "legend")
@@ -62,7 +61,7 @@ class StreamGraph extends Component {
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
-    // Clear previous graph elements but keep the legend
+    // clear previous graph elements but keep legend
     d3.select('.streamGraph').select('g').selectAll('*').remove();
 
     // create svg container
