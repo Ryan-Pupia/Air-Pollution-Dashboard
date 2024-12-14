@@ -21,6 +21,7 @@ class App extends Component {
       LineChartPollutant: [],
       currentDateRange: null,
       timeRange: [0, 100],
+      sliderInitialized: false
     };
   }
 
@@ -29,7 +30,6 @@ class App extends Component {
       (key)=>
         key!== "Date" && key!== "Time" && key!== "T" && key!== "RH" && key!== "AH"
     );
-    // console.log("Pollutants:", pollutantsList);
 
     this.setState({
       originalData: csv_data,
@@ -37,16 +37,14 @@ class App extends Component {
       pollutants: pollutantsList,
       ScatterPollutant: pollutantsList[0],
       LineChartPollutant: pollutantsList[0],
+    }, () => {
+      // Initialize slider after data is set
+      if (!this.state.sliderInitialized) {
+        this.initializeTimeSlider();
+      }
     });
-
-    //console.log(csv_data);
   };
 
-  // polSel = (pollutant) => {
-  //   this.setState({ choicePollutant: pollutant });
-  // };
-
-  //Separate change handlers for Scatter and Line:
   handleScatterPollutantChange = (pollutant) => {
     this.setState({ ScatterPollutant: pollutant });   
   }
@@ -58,12 +56,7 @@ class App extends Component {
     );
   }
 
-  // handleLineChartChange = (pollutant) => {
-  //   this.setState({LineChartPollutant: pollutant});
-  // }
-
   handleLineChartChange = (pollutant) => {
-    // line chart needs to be updated while keeping current date range
     const filteredData = this.currentDateRangeFilter(
       this.state.originalData, 
       this.state.currentDateRange
@@ -75,24 +68,20 @@ class App extends Component {
     });
   }
 
-  // handle slider to not update each time a dropdown is selected
   handleSliderChange = (event) => {
     const filteredData = this.currentDateRangeFilter(
       this.state.originalData, 
       this.state.currentDateRange
     );
     const value = event.target.value;
-    this.setState({ timeRange: [0, value],
+    this.setState({ 
+      timeRange: [0, value],
       filteredData: filteredData
-     });
+    });
   }
 
-  componentDidUpdate() {
-    this.timeSlider();
-  }
-
-  timeSlider = () => {
-    const data = this.state.filteredData;
+  initializeTimeSlider = () => {
+    const data = this.state.originalData;
     const allDates = data.map(d => new Date(d.Date));
     const minDate = d3.min(allDates);
     const maxDate = d3.max(allDates);
@@ -107,12 +96,10 @@ class App extends Component {
       .default([minDate, maxDate])
       .fill('#85bb65')
       .on('onchange', val => {
-        // 7 day range to debug
         if (val[1] - val[0] < weekmili) {
           val[1] = new Date(val[0].getTime() + weekmili);
         }
 
-        // state stores date range currently
         this.setState({ 
           currentDateRange: val,
           filteredData: this.state.originalData.filter(
@@ -131,6 +118,15 @@ class App extends Component {
       .attr('transform', 'translate(90,30)');
 
     gRange.call(sliderRange);
+    
+    this.setState({ sliderInitialized: true });
+  }
+
+  componentDidMount() {
+    // if data is already loaded when component mounts, initialize slider
+    if (this.state.originalData.length > 0 && !this.state.sliderInitialized) {
+      this.initializeTimeSlider();
+    }
   }
 
   render() {
@@ -138,69 +134,62 @@ class App extends Component {
 
     return(
       <div className="App">
-        {/* File Upload */}
         <FileUpload set_data={this.set_data} />
 
-        {/* Show dashboard only when data is loaded */}
         {originalData.length > 0 && (
           <>
-            {/* Column List */}
             <ColumnList csv_data={originalData} />
             <div className="Component-1">
-            {/* Date Slider */}
-            <div className="mySlider">
-              <svg className="slider-range"></svg>
+              <div className="mySlider">
+                <svg className="slider-range"></svg>
+              </div>
+
+              <div className="streamAndLine">
+                <div className="item">
+                  <h3 style={{ marginTop: 5, marginBottom: 5 }}>StreamGraph:</h3>
+                  <StreamGraph csv_data={filteredData} />
+                </div>
+                <div className="item">
+                  {pollutants.length > 0 && (
+                    <Dropdown
+                      columns={pollutants}
+                      onSelect={this.handleLineChartChange}
+                    />
+                  )}
+                  <h3 style={{ marginTop: 5, marginBottom: 5 }}>LineChart:</h3>
+                  {LineChartPollutant && (
+                    <SinglePollutants 
+                      csv_data={filteredData} 
+                      columns={pollutants} 
+                      choicePollutant={LineChartPollutant} 
+                      timeRange={timeRange}
+                    />
+                  )}
+                </div>
+              </div>
             </div>
 
-            {/* Stream Graph and Single Pollutants w/ Dropdown Visualization */}
-            <div className="streamAndLine">
-              <div className="item">
-                <h3 style={{ marginTop: 5, marginBottom: 5 }}>StreamGraph:</h3>
-                <StreamGraph csv_data={filteredData} />
-              </div>
-              <div className="item">
-                {/* Dropdown for LineChart */}
-                {pollutants.length > 0 && (
-                  <Dropdown
-                    columns={pollutants}
-                    onSelect={this.handleLineChartChange}
-                  />
-                )}
-                <h3 style={{ marginTop: 5, marginBottom: 5 }}>LineChart:</h3>
-                {LineChartPollutant && (
-                  <SinglePollutants 
-                    csv_data={filteredData} 
-                    columns={pollutants} 
-                    choicePollutant={LineChartPollutant} 
-                    timeRange={timeRange}
-                  />
-                )}
-              </div>
-            </div>
-            </div>
             <div className="Component-2">
-            {/* Scatter Plot Label and Dropdown */}
-            <div className="scatterPlotLabelAndDropdown">
-              <div className="item">
-                <h3 style={{ marginTop: 5, marginBottom: 5 }}>ScatterPlots:</h3>
+              <div className="scatterPlotLabelAndDropdown">
+                <div className="item">
+                  <h3 style={{ marginTop: 5, marginBottom: 5 }}>ScatterPlots:</h3>
+                </div>
+                <div className="item">
+                  {pollutants.length > 0 && (
+                    <Dropdown
+                      columns={pollutants}
+                      onSelect={this.handleScatterPollutantChange}
+                    />
+                  )}
+                </div>
               </div>
-              <div className="item">
-                {pollutants.length > 0 && (
-                  <Dropdown
-                    columns={pollutants}
-                    onSelect={this.handleScatterPollutantChange}
-                  />
-                )}
-              </div>
-            </div>
 
-            {/* Scatter Plots */}
-            {ScatterPollutant && (
-                <ScatterPlots
-                  csv_data={originalData}
-                  choicePollutant={ScatterPollutant}
-                />
-            )}
+              {ScatterPollutant && (
+                  <ScatterPlots
+                    csv_data={originalData}
+                    choicePollutant={ScatterPollutant}
+                  />
+              )}
             </div>
           </>
         )}
