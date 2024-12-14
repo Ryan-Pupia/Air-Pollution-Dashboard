@@ -50,6 +50,7 @@ class App extends Component {
   handleScatterPollutantChange = (pollutant) => {
     this.setState({ ScatterPollutant: pollutant });   
   }
+
   currentDateRangeFilter = (data, dateRange) => {
     if (!dateRange) return data;
     return data.filter(
@@ -60,6 +61,7 @@ class App extends Component {
   // handleLineChartChange = (pollutant) => {
   //   this.setState({LineChartPollutant: pollutant});
   // }
+
   handleLineChartChange = (pollutant) => {
     // line chart needs to be updated while keeping current date range
     const filteredData = this.currentDateRangeFilter(
@@ -143,9 +145,7 @@ class App extends Component {
         {originalData.length > 0 && (
           <>
             {/* Column List */}
-            <div className="column-list-container">
-              <ColumnList csv_data={originalData} />
-            </div>
+            <ColumnList csv_data={originalData} />
             
             {/* Date Slider */}
             <div className="mySlider">
@@ -155,7 +155,7 @@ class App extends Component {
             {/* Stream Graph and Single Pollutants w/ Dropdown Visualization */}
             <div className="streamAndLine">
               <div className="item">
-                <h3>StreamGraph:</h3>
+                <h3 style={{ marginTop: 5, marginBottom: 5 }}>StreamGraph:</h3>
                 <StreamGraph csv_data={filteredData} />
               </div>
               <div className="item">
@@ -166,7 +166,7 @@ class App extends Component {
                     onSelect={this.handleLineChartChange}
                   />
                 )}
-                <h3>LineChart:</h3>
+                <h3 style={{ marginTop: 5, marginBottom: 5 }}>LineChart:</h3>
                 {LineChartPollutant && (
                   <SinglePollutants 
                     csv_data={filteredData} 
@@ -178,19 +178,22 @@ class App extends Component {
               </div>
             </div>
 
-            {/* Scatter Plot Dropdown */}
-            <div className="scatterPlotDropdown">
-              {/* Dropdown for ScatterPlots */}
-              {pollutants.length > 0 && (
-                <Dropdown
-                  columns={pollutants}
-                  onSelect={this.handleScatterPollutantChange}
-                />
-              )}
+            {/* Scatter Plot Label and Dropdown */}
+            <div className="scatterPlotLabelAndDropdown">
+              <div className="item">
+                <h3 style={{ marginTop: 5, marginBottom: 5 }}>ScatterPlots:</h3>
+              </div>
+              <div className="item">
+                {pollutants.length > 0 && (
+                  <Dropdown
+                    columns={pollutants}
+                    onSelect={this.handleScatterPollutantChange}
+                  />
+                )}
+              </div>
             </div>
 
             {/* Scatter Plots */}
-            <h3>ScatterPlots:</h3>
             {ScatterPollutant && (
                 <ScatterPlots
                   csv_data={originalData}
