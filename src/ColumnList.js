@@ -26,15 +26,19 @@ class ColumnList extends Component {
 
     // Set up number of rows and cols
     const nrow = 1
-    const ncol = 14
+    const ncol = cols.length
     
-    // Add the colum texts
+    const fontSize = 13
+    const horizontalSpacing = width / ncol + 10
+
     ColList.selectAll(".column").data(cols).join('text')
         .attr('class', 'column')
         .attr('text-anchor', 'start')
-        .attr('font-size', 16)
-        .attr('x', (d, i) => 16+ width/ncol*(i%ncol))
-        .attr('y', (d, i) => 22 + (height-20)/nrow*(Math.floor(i/ncol)))
+        .attr('font-size', fontSize)
+        .attr('x', (d, i) => {
+          return 10 + horizontalSpacing * i
+        })
+        .attr('y', 22)
         .text(d => d)
         .on("mousemove", (event, d) => {
             const smallWidth = 400
@@ -54,15 +58,6 @@ class ColumnList extends Component {
               .attr('width', smallWidth)
               .attr('transform', `translate(${smallMargin.left}, ${smallMargin.top})`)
 
-            // Add in white background
-            // toolContainer.selectAll('.toolBackground').data([0]).join('rect').attr('class', 'toolBackground')
-            //   .attr('x', 0)
-            //   .attr('y', 0)
-            //   .attr('width', smallWidth)
-            //   .attr('height', smallHeight)
-            //   .attr('stroke', 'none')
-            //   .style('fill', 'white')
-
             // Get the column data and configure scales
             var coldat = data.map(d => d[column])
             var histogram = d3.bin().domain([d3.min(coldat), d3.max(coldat)])
@@ -70,7 +65,6 @@ class ColumnList extends Component {
             var smallX = d3.scaleLinear().domain([d3.min(coldat), d3.max(coldat)]).range([0, smallWidth])
             var smallY = d3.scaleLinear().domain([0, d3.max(bins, function(d) { return d.length; })]).range([smallHeight, 0])
 
-    
             // Make colors consistent with stream graph
             const pollutants = ["CO(GT)", "PT08.S1(CO)", "NMHC(GT)", "C6H6(GT)", "PT08.S2(NMHC)", 
               "NOx(GT)", "PT08.S3(NOx)", "NO2(GT)", "PT08.S4(NO2)", "PT08.S5(O3)"];
