@@ -22,9 +22,9 @@ class ScatterPlots extends Component{
 //clearing plots
     d3.select(".scatterPlots").selectAll("*").remove();
 
-    const width = 250;
-    const height = 150;
-    const margin ={ top: 20, right: 50, bottom: 60, left: 70 };
+    const width = 550;
+    const height = 200;
+    const margin ={ top: 10, right: 50, bottom: 50, left: 70 };
     const iWidth =width - margin.left - margin.right;
     const iHeight =height - margin.top - margin.bottom;
 

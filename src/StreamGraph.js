@@ -12,7 +12,7 @@ class StreamGraph extends Component {
   }
 
   createLegend = () => {
-    const margin = { top: 40, right: 180, bottom: 40, left: 20 };
+    const margin = { top: 30, right: 180, bottom: 40, left: 20 };
     const width = 900;
     const pollutants = ["CO(GT)", "PT08.S1(CO)", "NMHC(GT)", "C6H6(GT)", "PT08.S2(NMHC)", 
                        "NOx(GT)", "PT08.S3(NOx)", "NO2(GT)", "PT08.S4(NO2)", "PT08.S5(O3)"];
@@ -55,9 +55,9 @@ class StreamGraph extends Component {
                    "#33FFF5", "#8E44AD", "#E67E22", "#1ABC9C", "#34495E"];
 
     // set dimensions and margins
-    const margin = { top: 40, right: 180, bottom: 40, left: 20 };
+    const margin = { top: 30, right: 180, bottom: 40, left: 20 };
     const width = 900;
-    const height = 300;
+    const height = 240;
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
